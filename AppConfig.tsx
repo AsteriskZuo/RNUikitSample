@@ -7,6 +7,7 @@ export let defaultId = 'asterisk001';
 export let defaultPs = 'qwerty';
 export const autoLogin = false;
 export const debugModel = true;
+export const defaultTargetId = 'du006';
 
 try {
   appKey = require('./env').appKey;
