@@ -522,6 +522,8 @@ const styles = StyleSheet.create({
 });
 ```
 
+完整示例 [参考](./App.tsx)
+
 ## 运行和演示
 
 执行 React-Native 运行命令 `yarn run ios` 或者 `yarn run android`，开始体验吧。
