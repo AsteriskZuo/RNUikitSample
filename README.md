@@ -36,6 +36,13 @@ yarn add react-native-chat-sdk
 yarn add react-native-chat-uikit
 ```
 
+**Description** There are two ways to integrate `react-native-chat-uikit`:
+
+1. Integrate local dependencies `yarn add <local repo path>`
+2. Integrate npm package `yarn add react-native-chat-uikit@0.1.1-beta.1`
+
+[react-native-chat-uikit repo](https://github.com/easemob/react-native-chat-library/packages/react-native-chat-uikit)
+
 Add page routing component
 
 ```sh

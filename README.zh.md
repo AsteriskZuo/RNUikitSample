@@ -36,6 +36,13 @@ yarn add react-native-chat-sdk
 yarn add react-native-chat-uikit
 ```
 
+**说明** 集成 `react-native-chat-uikit` 有两种方式：
+
+1. 集成本地依赖 `yarn add <local repo path>`
+2. 集成 npm 包 `yarn add react-native-chat-uikit@0.1.1-beta.1`
+
+[react-native-chat-uikit repo](https://github.com/easemob/react-native-chat-library/packages/react-native-chat-uikit)
+
 添加页面路由组件
 
 ```sh
