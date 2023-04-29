@@ -12,6 +12,8 @@ const content = `export const test = true;
 export const appKey = '';
 export const id = '';
 export const ps = '';
+export const accountType = 'agora'; // agora or easemob
 export const agoraAppId = '';
+export const targetId = '';
 `;
 fs.writeFileSync(file, content, 'utf-8');

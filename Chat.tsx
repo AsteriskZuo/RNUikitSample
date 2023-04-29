@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootParamsList} from './AppConfig';
+import {RootParamsList, dlog} from './AppConfig';
 import {
   Button,
   ChatFragment,
@@ -29,7 +29,7 @@ import {
 export function ChatScreen({
   route,
 }: NativeStackScreenProps<typeof RootParamsList>): JSX.Element {
-  console.log('test:', route.params);
+  dlog.log('test:', route.params);
   const chatRef = React.useRef<ChatFragmentRef>({} as any);
   const chatId = React.useRef((route.params as any).chatId ?? '').current;
   // const chatType = (route.params as any).chatType ?? 0;
@@ -47,24 +47,24 @@ export function ChatScreen({
           AVFormatIDKeyIOS: AVEncodingOption.aac,
         } as AudioSet,
         onPosition: pos => {
-          console.log('test:startRecordAudio:pos:', pos);
+          dlog.log('test:startRecordAudio:pos:', pos);
         },
         onFailed: error => {
           console.warn('test:startRecordAudio:onFailed:', error);
         },
         onFinished: ({result, path, error}) => {
-          console.log('test:startRecordAudio:onFinished:', result, path, error);
+          dlog.log('test:startRecordAudio:onFinished:', result, path, error);
         },
       })
       .then(result => {
-        console.log('test:startRecordAudio:result:', result);
+        dlog.log('test:startRecordAudio:result:', result);
       })
       .catch(error => {
         console.warn('test:startRecordAudio:error:', error);
       });
   };
   const onPressOutInputVoiceButton = () => {
-    console.log('test:onPressOutInputVoiceButton:', Services.dcs);
+    dlog.log('test:onPressOutInputVoiceButton:', Services.dcs);
     let localPath = Services.dcs.getFileDir(chatId, uuid());
     Services.ms
       .stopRecordAudio()
@@ -110,7 +110,7 @@ export function ChatScreen({
       },
       onResponderGrant: (_: GestureResponderEvent) => {},
       onResponderRelease: (_: GestureResponderEvent) => {
-        console.log('test:onResponderRelease:1:');
+        dlog.log('test:onResponderRelease:1:');
         setShowSheet(false);
       },
     } as GestureResponderHandlers;
@@ -123,7 +123,7 @@ export function ChatScreen({
       },
       onResponderGrant: (_: GestureResponderEvent) => {},
       onResponderRelease: (_: GestureResponderEvent) => {
-        console.log('test:onResponderRelease:2:');
+        dlog.log('test:onResponderRelease:2:');
       },
     } as GestureResponderHandlers;
 
@@ -132,7 +132,7 @@ export function ChatScreen({
       Services.ms
         .openCamera({})
         .then(result => {
-          console.log('openCamera:', Platform.OS, result);
+          dlog.log('openCamera:', Platform.OS, result);
           chatRef.current?.sendImageMessage([
             {
               name: result?.name ?? '',
@@ -142,7 +142,7 @@ export function ChatScreen({
               width: result?.width ?? 0,
               height: result?.height ?? 0,
               onResult: r => {
-                console.log('openCamera:result:', r);
+                dlog.log('openCamera:result:', r);
               },
             },
           ]);
@@ -156,7 +156,7 @@ export function ChatScreen({
       Services.ms
         .openMediaLibrary({selectionLimit: 1})
         .then(result => {
-          console.log('openMediaLibrary:', Platform.OS, result);
+          dlog.log('openMediaLibrary:', Platform.OS, result);
           chatRef.current?.sendImageMessage(
             result.map(value => {
               return {
@@ -167,7 +167,7 @@ export function ChatScreen({
                 width: value?.width ?? 0,
                 height: value?.height ?? 0,
                 onResult: r => {
-                  console.log('openMediaLibrary:result:', r);
+                  dlog.log('openMediaLibrary:result:', r);
                 },
               };
             }),
@@ -186,13 +186,13 @@ export function ChatScreen({
       Services.ms
         .openDocument({})
         .then(result => {
-          console.log('openDocument:', Platform.OS, result);
+          dlog.log('openDocument:', Platform.OS, result);
           chatRef.current?.sendFileMessage({
             localPath: result?.uri ?? '',
             fileSize: result?.size ?? 0,
             displayName: result?.name,
             onResult: r => {
-              console.log('openDocument:result', r);
+              dlog.log('openDocument:result', r);
             },
           });
         })

@@ -20,7 +20,6 @@ import {ChatScreen} from './Chat';
 const Root = createNativeStackNavigator();
 
 const App = () => {
-  console.log('App:');
   return (
     <UikitContainer
       option={{

@@ -3,9 +3,11 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StyleSheet, View} from 'react-native';
 import {
   RootParamsList,
+  accountType,
   defaultId,
   defaultPs,
   defaultTargetId,
+  dlog,
 } from './AppConfig';
 import {
   Button,
@@ -13,11 +15,13 @@ import {
   TextInput,
   useChatSdkContext,
 } from 'react-native-chat-uikit';
+import {LogMemo} from './AppLog';
+import {AppServerClient} from './AppServer';
 
 export function MainScreen({
   navigation,
 }: NativeStackScreenProps<typeof RootParamsList>): JSX.Element {
-  console.log('test:', defaultId, defaultPs);
+  dlog.log('test:', defaultId, defaultPs);
   const placeholder1 = 'Please User Id';
   const placeholder2 = 'Please User Password or Token';
   const placeholder3 = 'Please Chat Target Id';
@@ -25,20 +29,60 @@ export function MainScreen({
   const [token, setToken] = React.useState(defaultPs);
   const [chatId, setChatId] = React.useState(defaultTargetId);
   const {login: loginAction, logout: logoutAction} = useChatSdkContext();
+  const logRef = React.useRef({
+    logHandler: (message?: any, ...optionalParams: any[]) => {
+      console.log(message, ...optionalParams);
+    },
+  });
+
+  dlog.handler = (message?: any, ...optionalParams: any[]) => {
+    logRef.current?.logHandler?.(message, ...optionalParams);
+  };
+
   const login = () => {
-    loginAction({
-      id,
-      pass: token,
-      type: 'easemob',
-      onResult: (result: {result: boolean; error?: any}) => {
-        console.log('logout:', result.result, result.error);
+    if (accountType !== 'easemob') {
+      AppServerClient.getAccountToken({
+        userId: id,
+        userPassword: token,
+        onResult: (params: {data?: any; error?: any}) => {
+          if (params.error === undefined) {
+            loginAction({
+              id,
+              pass: params.data.token,
+              type: accountType,
+              onResult: (result: {result: boolean; error?: any}) => {
+                console.log('logout:', result.result, result.error);
+              },
+            });
+          } else {
+            dlog.log('loginWithAgoraToken:error:', params.error);
+          }
+        },
+      });
+    } else {
+      loginAction({
+        id,
+        pass: token,
+        type: accountType,
+        onResult: (result: {result: boolean; error?: any}) => {
+          console.log('logout:', result.result, result.error);
+        },
+      });
+    }
+  };
+  const registry = () => {
+    AppServerClient.registerAccount({
+      userId: id,
+      userPassword: token,
+      onResult: (params: {data?: any; error?: any}) => {
+        dlog.log('registerAccount:', id, token, params);
       },
     });
   };
   const logout = () => {
     logoutAction({
       onResult: (result: {result: boolean; error?: any}) => {
-        console.log('logout:', result.result, result.error);
+        dlog.log('logout:', result.result, result.error);
       },
     });
   };
@@ -72,6 +116,9 @@ export function MainScreen({
           <Button style={styles.button} onPress={login}>
             SIGN IN
           </Button>
+          <Button style={styles.button} onPress={registry}>
+            SIGN UP
+          </Button>
           <Button style={styles.button} onPress={logout}>
             SIGN OUT
           </Button>
@@ -91,6 +138,7 @@ export function MainScreen({
             START CHAT
           </Button>
         </View>
+        <LogMemo propsRef={logRef} />
       </View>
     </ScreenContainer>
   );
