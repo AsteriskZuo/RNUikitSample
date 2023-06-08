@@ -24,11 +24,14 @@ export const LogMemo = React.memo(({propsRef}: LogProps) => {
       if (str.trim().length > 0) {
         str += '\n';
       }
-      const ret = str.matchAll(/\n/g);
+      const ret = str.match(/\n/g);
       let count = 0;
-      for (const {} of ret) {
-        ++count;
+      if (ret !== null) {
+        for (const {} of ret) {
+          ++count;
+        }
       }
+
       if (count > max_count) {
         const pos = str.indexOf('\n');
         if (pos > 0) {

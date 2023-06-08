@@ -22,9 +22,9 @@ export function MainScreen({
   navigation,
 }: NativeStackScreenProps<typeof RootParamsList>): JSX.Element {
   dlog.log('test:', defaultId, defaultPs);
-  const placeholder1 = 'Please User Id';
-  const placeholder2 = 'Please User Password or Token';
-  const placeholder3 = 'Please Chat Target Id';
+  const placeholder1 = 'Please enter the user ID';
+  const placeholder2 = 'Please enter the user password or token';
+  const placeholder3 = 'Please enter the user ID of the peer user';
   const [id, setId] = React.useState(defaultId);
   const [token, setToken] = React.useState(defaultPs);
   const [chatId, setChatId] = React.useState(defaultTargetId);
