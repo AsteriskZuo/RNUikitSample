@@ -1,49 +1,96 @@
-_English | [中文](./README.zh.md)_
+# Get started with Agora Chat UIKit
 
----
+Instant messaging connects people wherever they are and allows them to communicate with others in real time. With built-in user interfaces (UI) for the message list, the [Agora Chat UI Samples](Readme) enables you to quickly embed real-time messaging into your app without requiring extra effort on the UI.
 
-## Example project introduction
+This page shows a sample code to add peer-to-peer messaging into your app by using the Agora Chat UI Samples.
 
-This project is a demo project of Uikit SDK.
+## Understand the tech
 
-Mainly for the simplest demo of Uikit SDK. For more detailed usage examples, please see other example projects.
+The following figure shows the workflow of how clients send and receive peer-to-peer messages:
 
-## environment
+![agora_chat](https://docs.agora.io/en/assets/images/get-started-sdk-understand-009486abec0cc276183ab535456cf889.png)
 
-- react-native: 0.70.0 or higher
+1. Clients retrieve a token from your app server.
+2. Client A and Client B log in to Agora Chat.
+3. Client A sends a message to Client B. The message is sent to the Agora Chat server and the server delivers the message to Client B. When Client B receives the message, the SDK triggers an event. Client B listens for the event and gets the message.
+
+## Prerequisites
+
+- react-native: 0.66.0 or later
 - nodejs: 16.18.0 or later
 
-## create project
+## Token generation
+
+This section describes how to register a user at Agora Console and generate a temporary token.
+
+### Register a user
+
+To generate a user ID, do the following:
+
+1. On the **Project Management** page, click **Config** for the project you want to use.
+
+![](https://web-cdn.agora.io/docs-files/1664531061644)
+
+2. On the **Edit Project** page, click **Config** next to **Chat** below **Features**.
+
+![](https://web-cdn.agora.io/docs-files/1664531091562)
+
+3. In the left-navigation pane, select **Operation Management** > **User** and click **Create User**.
+
+![](https://web-cdn.agora.io/docs-files/1664531141100)
+
+4. In the **Create User** dialog box, fill in the **User ID**, **Nickname**, and **Password**, and click **Save** to create a user.
+
+![](https://web-cdn.agora.io/docs-files/1664531162872)
+
+### Generate a user token
+
+To ensure communication security, Agora recommends using tokens to authenticate users logging in to an Agora Chat system.
+
+For testing purposes, Agora Console supports generating Agora chat tokens. To generate an Agora chat token, do the following:
+
+1. On the **Project Management** page, click **Config** for the project you want to use.
+
+![](https://web-cdn.agora.io/docs-files/1664531061644)
+
+2. On the **Edit Project** page, click **Config** next to **Chat** below **Features**.
+
+![](https://web-cdn.agora.io/docs-files/1664531091562)
+
+3. In the **Data Center** section of the **Application Information** page, enter the user ID in the **Chat User Temp Token** box and click **Generate** to generate a token with user privileges.
+
+![](https://web-cdn.agora.io/docs-files/1664531214169)
+
+## Project setup
+
+### 1. Create a React-Native project
+
+Open a terminal, enter a directory in which you want to create a React-Native project, and run the following command to create a project folder named `RNUikitSample`.
 
 ```sh
 npx react-native init RNUikitSample --template react-native-template-typescript
 ```
 
-## Project initialization
+### 2. Initialize the project
+
+Run the `yarn` command to initialize the React-Native project:
 
 ```sh
 yarn
 ```
 
-## Project configuration
+### 3. Set up the project
 
-### package.json
-
-Add Chat SDK and Uikit SDK
+1. Open a terminal, enter the `RNUikitSample` directory, and run the following commands to add the Agora Chat SDK and UIKit SDK in `package.json`.
 
 ```sh
 yarn add react-native-chat-sdk
 yarn add react-native-chat-uikit
 ```
 
-**Description** There are two ways to integrate `react-native-chat-uikit`:
+For the project details, see the [react-native-chat-uikit repo](https://github.com/AgoraIO-Usecase/AgoraChat-rn/tree/dev/packages/react-native-chat-uikit).
 
-1. Integrate local dependencies `yarn add <local repo path>`
-2. Integrate npm package `yarn add react-native-chat-uikit@0.1.1-beta.1`
-
-[react-native-chat-uikit repo](https://github.com/easemob/react-native-chat-library/packages/react-native-chat-uikit)
-
-Add page routing component
+2. Add page routing components:
 
 ```sh
 yarn add @react-navigation/native
@@ -52,7 +99,7 @@ yarn add react-native-safe-area-context
 yarn add react-native-screens
 ```
 
-Add dependencies required by Uikit SDK
+3. Add dependencies required by the UIKit SDK:
 
 ```sh
 yarn add @react-native-clipboard/clipboard
@@ -72,7 +119,7 @@ yarn add react-native-get-random-values
 
 ### ios
 
-Add permissions in `Info.plist`
+1. Add permissions in `Info.plist`:
 
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
@@ -85,7 +132,7 @@ Add permissions in `Info.plist`
 <string>notifications</string>
 ```
 
-Add additional configuration in `Podfile`
+2. Add additional configurations in `Podfile`:
 
 ```ruby
    pod 'GoogleUtilities', :modular_headers => true
@@ -103,7 +150,7 @@ Add additional configuration in `Podfile`
 
 ### android
 
-Add permission in `AndroidManifest.xml`
+1. Add permissions in `AndroidManifest.xml`:
 
 ```xml
    <uses-permission android:name="android.permission.INTERNET"/>
@@ -113,7 +160,7 @@ Add permission in `AndroidManifest.xml`
    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 ```
 
-Add `kotlin` support in `build.gradle`
+2. Add `kotlin` support in `build.gradle`:
 
 ```groovy
 buildscript {
@@ -131,7 +178,7 @@ buildscript {
 }
 ```
 
-## Code
+## Implement peer-to-peer messaging
 
 ### Configure the local environment
 
@@ -140,12 +187,12 @@ export const RootParamsList: Record<string, object | undefined> = {
   Main: {},
   Chat: {},
 };
-export let appKey = '1135220126133718#demo';
-export let defaultId = 'asterisk001';
-export let defaultPs = 'qwerty';
+export let appKey = '<your app key>';
+export let defaultId = '<your user ID>';
+export let defaultPs = '<your user token>';
 export const autoLogin = false;
 export const debugModel = true;
-export const defaultTargetId = 'du006';
+export const defaultTargetId = '<peer user ID>';
 
 try {
   appKey = require('./env').appKey;
@@ -156,7 +203,7 @@ try {
 }
 ```
 
-### Initialize Uikit SDK
+### Initialize the UIKit SDK
 
 ```typescript
 const Root = createNativeStackNavigator();
@@ -183,16 +230,16 @@ const App = () => {
 export default App;
 ```
 
-### Login and logout
+### Implement the login page
 
 ```typescript
 export function MainScreen({
   navigation,
 }: NativeStackScreenProps<typeof RootParamsList>): JSX.Element {
   dlog.log('test:', defaultId, defaultPs);
-  const placeholder1 = 'Please User Id';
-  const placeholder2 = 'Please User Password or Token';
-  const placeholder3 = 'Please Chat Target Id';
+  const placeholder1 = 'Please enter the user ID';
+  const placeholder2 = 'Please enter the user password or token';
+  const placeholder3 = 'Please enter the user ID of the peer user';
   const [id, setId] = React.useState(defaultId);
   const [token, setToken] = React.useState(defaultPs);
   const [chatId, setChatId] = React.useState(defaultTargetId);
@@ -337,7 +384,9 @@ const styles = StyleSheet.create({
 });
 ```
 
-### Integrated chat page
+![image](./screenshot/login.jpg)
+
+### Implement the chat page
 
 ```typescript
 export function ChatScreen({
@@ -573,14 +622,34 @@ const styles = StyleSheet.create({
 });
 ```
 
-Complete example [Reference](./App.tsx)
+![image](./screenshot/chat.jpg)
 
-## Run and demo
+## Test your app
 
-Execute the React-Native run command `yarn run ios` or `yarn run android`, and start to experience it.
+To validate the peer-to-peer messaging you have just integrated into your app using Agora Chat, perform the following operations to test the project:
 
-## more detailed example
+1. Log in
 
-[see](https://github.com/easemob/react-native-chat-library/tree/dev/example)
+a. Replace the placeholders of `appKey`, `userId`, and `agoraToken` with the App Key, user ID, and Agora token of the sender.
 
-## Q & A
+b. Select the device to run the project, run `flutter run` in the `uikit_quick_start` directory, and click `SIGN IN`.
+
+2. Open the `MessagesPage` page
+
+Fill in the user ID of the recipient in the `Enter recipient's user Id` box, and click `START CHAT` to open the `MessagesPage` page.
+
+3. Send a message
+
+On the `MessagesPage` page, click the input box, enter the information to be sent, and click `Send`.
+
+## Next steps
+
+For demonstration purposes, Chat provides an app server that enables you to quickly retrieve a token using the [App Key](.enable_agora_chat?platform=Android#get-the-information-of-the-agora-chat-project) given in this guide. In a production context, the best practice is for you to deploy your own token server, use your own App Key to generate a token, and retrieve the token on the client side to log in to Agora. To see how to implement a server that generates and serves tokens on request, see [Authenticate your users with tokens](./authentication?platform=android).
+
+## Reference
+
+Complete example [Reference](https://github.com/AgoraIO-Usecase/AgoraChat-UIKit-rn)
+
+- Run the React-Native running command `yarn run ios` or `yarn run android` to experience the demo.
+
+-For a detailed example, see [the detailed example on Github](https://github.com/AgoraIO-Usecase/AgoraChat-rn/tree/dev/example)

@@ -6150,13 +6150,20 @@ react-native-audio-recorder-player@^3.5.0, react-native-audio-recorder-player@^3
     dooboolab-welcome "^1.3.2"
     react-native-audio-recorder-player "^3.5.1"
 
+react-native-chat-sdk@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npmmirror.com/react-native-chat-sdk/-/react-native-chat-sdk-1.1.2.tgz#e5162ff3c8054b8366c8f9dddda51a61feea2a88"
+  integrity sha512-0gRQWWWpKZy1dAo/YV0gcTxBHOr8FyHYr+1idcsAEPCWao63/wnUDQ0QJiobBQXfFLkFleW+/MGzsIruEUXJxA==
+
 react-native-chat-sdk@1.1.2-beta.5:
   version "1.1.2-beta.5"
   resolved "https://registry.npmmirror.com/react-native-chat-sdk/-/react-native-chat-sdk-1.1.2-beta.5.tgz#a9dddd0962f86c44f59a2947087ba07f47161762"
   integrity sha512-Y7jWx78yszg1JxRcFpVpLEvBMgpwjh13t49BOOHwZHYUczRbKTzieE+0XYqoxTEnNgxKAxVYiRh/v5lweInDjg==
 
-react-native-chat-uikit@../react-native-chat-library/packages/react-native-chat-uikit:
-  version "0.1.1-beta.2"
+react-native-chat-uikit@0.1.1-beta.3:
+  version "0.1.1-beta.3"
+  resolved "https://registry.npmmirror.com/react-native-chat-uikit/-/react-native-chat-uikit-0.1.1-beta.3.tgz#a69fc04a319d12351f7ce3a3ec2cc6b2057fde4d"
+  integrity sha512-cdhX3jhct+tlZRjSB3xuhdLLP0HsTYesP9hT+G8qO5ceOYnPwXSkuXk2bXyt+MHgX1fRk6pzzgFaiDpph/rBgA==
   dependencies:
     "@react-native-async-storage/async-storage" "^1.17.11"
     "@react-native-camera-roll/camera-roll" "^5.2.0"

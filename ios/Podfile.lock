@@ -376,10 +376,10 @@ PODS:
     - glog
   - react-native-cameraroll (5.3.1):
     - React-Core
-  - react-native-chat-sdk (1.1.2-beta.5):
+  - react-native-chat-sdk (1.1.2):
     - HyphenateChat (= 4.0.2)
     - React-Core
-  - react-native-chat-uikit (0.1.1-beta.2):
+  - react-native-chat-uikit (0.1.1-beta.3):
     - React-Core
   - react-native-create-thumbnail (1.6.4):
     - React-Core
@@ -783,8 +783,8 @@ SPEC CHECKSUMS:
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-cameraroll: f3050460fe1708378698c16686bfaa5f34099be2
-  react-native-chat-sdk: 3d49626af1281dc10855a5a44e59139d462847c0
-  react-native-chat-uikit: e3cd554ff4921ee94c1864cd2a7ce83dd3a9c2ac
+  react-native-chat-sdk: 06f9401ef05b0e9cfe3ac659cfe83904baa50b75
+  react-native-chat-uikit: 635bd145c8b351dafc649a611695e33b2b0954db
   react-native-create-thumbnail: e022bcdcba8a0b4529a50d3fa1a832ec921be39d
   react-native-document-picker: 495c444c0c773c6e83a5d91165890ecb1c0a399a
   react-native-file-access: a4398950e02999b5ab97f3055feb7ee28e6615a3
@@ -819,6 +819,6 @@ SPEC CHECKSUMS:
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 0aa63f95088d8952fb0c39a79d9b3442ecdac811
+PODFILE CHECKSUM: 8fe25158fea35ebc9b81348b614f05bf6fec5880
 
 COCOAPODS: 1.11.3

@@ -45,13 +45,14 @@ export function MainScreen({
         userId: id,
         userPassword: token,
         onResult: (params: {data?: any; error?: any}) => {
+          dlog.log('getAccountToken:', id, token, params);
           if (params.error === undefined) {
             loginAction({
               id,
               pass: params.data.token,
               type: accountType,
               onResult: (result: {result: boolean; error?: any}) => {
-                console.log('logout:', result.result, result.error);
+                dlog.log('loginAction:', result.result, result.error);
               },
             });
           } else {
@@ -65,7 +66,7 @@ export function MainScreen({
         pass: token,
         type: accountType,
         onResult: (result: {result: boolean; error?: any}) => {
-          console.log('logout:', result.result, result.error);
+          dlog.log('loginAction:', result.result, result.error);
         },
       });
     }
