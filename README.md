@@ -1,6 +1,6 @@
 # Get started with Agora Chat UIKit
 
-Instant messaging connects people wherever they are and allows them to communicate with others in real time. With built-in user interfaces (UI) for the message list, the [Agora Chat UI Samples](Readme) enables you to quickly embed real-time messaging into your app without requiring extra effort on the UI.
+Instant messaging connects people wherever they are and allows them to communicate with others in real time. With built-in user interfaces (UI) for the message list, the [Agora Chat UI Samples](https://docs.agora.io/en/agora-chat/get-started/get-started-uikit?platform=react-native) enables you to quickly embed real-time messaging into your app without requiring extra effort on the UI.
 
 This page shows a sample code to add peer-to-peer messaging into your app by using the Agora Chat UI Samples.
 
@@ -178,7 +178,7 @@ buildscript {
 }
 ```
 
-## Implement peer-to-peer messaging
+## Implement one-to-one messaging
 
 ### Configure the local environment
 
@@ -644,7 +644,7 @@ On the `MessagesPage` page, click the input box, enter the information to be sen
 
 ## Next steps
 
-For demonstration purposes, Chat provides an app server that enables you to quickly retrieve a token using the [App Key](.enable_agora_chat?platform=Android#get-the-information-of-the-agora-chat-project) given in this guide. In a production context, the best practice is for you to deploy your own token server, use your own App Key to generate a token, and retrieve the token on the client side to log in to Agora. To see how to implement a server that generates and serves tokens on request, see [Authenticate your users with tokens](./authentication?platform=android).
+For demonstration purposes, Chat provides an app server that enables you to quickly retrieve a token using the [App Key](https://docs.agora.io/en/agora-chat/get-started/enable?platform=android#get-the-information-of-the-chat-project) given in this guide. In a production context, the best practice is for you to deploy your own token server, use your own App Key to generate a token, and retrieve the token on the client side to log in to Agora. To see how to implement a server that generates and serves tokens on request, see [Authenticate your users with tokens](https://docs.agora.io/en/agora-chat/develop/authentication?platform=android).
 
 ## Reference
 
