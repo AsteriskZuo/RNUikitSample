@@ -209,13 +209,12 @@ try {
 const Root = createNativeStackNavigator();
 
 const App = () => {
-  dlog.log('App:');
   return (
     <UikitContainer
       option={{
-        appKey: appKey,
-        autoLogin: autoLogin,
-        debugModel: debugModel,
+        appKey: '<your app key>',
+        autoLogin: false,
+        debugModel: true,
       }}>
       <NavigationContainer>
         <Root.Navigator initialRouteName="Main">
@@ -236,7 +235,6 @@ export default App;
 export function MainScreen({
   navigation,
 }: NativeStackScreenProps<typeof RootParamsList>): JSX.Element {
-  dlog.log('test:', defaultId, defaultPs);
   const placeholder1 = 'Please enter the user ID';
   const placeholder2 = 'Please enter the user password or token';
   const placeholder3 = 'Please enter the user ID of the peer user';
@@ -255,42 +253,11 @@ export function MainScreen({
   };
 
   const login = () => {
-    if (accountType !== 'easemob') {
-      AppServerClient.getAccountToken({
-        userId: id,
-        userPassword: token,
-        onResult: (params: {data?: any; error?: any}) => {
-          if (params.error === undefined) {
-            loginAction({
-              id,
-              pass: params.data.token,
-              type: accountType,
-              onResult: (result: {result: boolean; error?: any}) => {
-                console.log('logout:', result.result, result.error);
-              },
-            });
-          } else {
-            dlog.log('loginWithAgoraToken:error:', params.error);
-          }
-        },
-      });
-    } else {
-      loginAction({
-        id,
-        pass: token,
-        type: accountType,
-        onResult: (result: {result: boolean; error?: any}) => {
-          console.log('logout:', result.result, result.error);
-        },
-      });
-    }
-  };
-  const registry = () => {
-    AppServerClient.registerAccount({
-      userId: id,
-      userPassword: token,
-      onResult: (params: {data?: any; error?: any}) => {
-        dlog.log('registerAccount:', id, token, params);
+    loginAction({
+      id: '<your id>',
+      pass: '<your token>',
+      onResult: (result: {result: boolean; error?: any}) => {
+        console.log('logout:', result.result, result.error);
       },
     });
   };
@@ -330,9 +297,6 @@ export function MainScreen({
         <View style={styles.buttonContainer}>
           <Button style={styles.button} onPress={login}>
             SIGN IN
-          </Button>
-          <Button style={styles.button} onPress={registry}>
-            SIGN UP
           </Button>
           <Button style={styles.button} onPress={logout}>
             SIGN OUT
@@ -392,7 +356,6 @@ const styles = StyleSheet.create({
 export function ChatScreen({
   route,
 }: NativeStackScreenProps<typeof RootParamsList>): JSX.Element {
-  dlog.log('test:', route.params);
   const chatRef = React.useRef<ChatFragmentRef>({} as any);
   const chatId = React.useRef((route.params as any).chatId ?? '').current;
   // const chatType = (route.params as any).chatType ?? 0;

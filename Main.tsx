@@ -3,7 +3,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StyleSheet, View} from 'react-native';
 import {
   RootParamsList,
-  accountType,
   defaultId,
   defaultPs,
   defaultTargetId,
@@ -16,7 +15,6 @@ import {
   useChatSdkContext,
 } from 'react-native-chat-uikit';
 import {LogMemo} from './AppLog';
-import {AppServerClient} from './AppServer';
 
 export function MainScreen({
   navigation,
@@ -40,43 +38,11 @@ export function MainScreen({
   };
 
   const login = () => {
-    if (accountType !== 'easemob') {
-      AppServerClient.getAccountToken({
-        userId: id,
-        userPassword: token,
-        onResult: (params: {data?: any; error?: any}) => {
-          dlog.log('getAccountToken:', id, token, params);
-          if (params.error === undefined) {
-            loginAction({
-              id,
-              pass: params.data.token,
-              type: accountType,
-              onResult: (result: {result: boolean; error?: any}) => {
-                dlog.log('loginAction:', result.result, result.error);
-              },
-            });
-          } else {
-            dlog.log('loginWithAgoraToken:error:', params.error);
-          }
-        },
-      });
-    } else {
-      loginAction({
-        id,
-        pass: token,
-        type: accountType,
-        onResult: (result: {result: boolean; error?: any}) => {
-          dlog.log('loginAction:', result.result, result.error);
-        },
-      });
-    }
-  };
-  const registry = () => {
-    AppServerClient.registerAccount({
-      userId: id,
-      userPassword: token,
-      onResult: (params: {data?: any; error?: any}) => {
-        dlog.log('registerAccount:', id, token, params);
+    loginAction({
+      id: id,
+      pass: token,
+      onResult: (result: {result: boolean; error?: any}) => {
+        dlog.log('loginAction:', result.result, result.error);
       },
     });
   };
@@ -116,9 +82,6 @@ export function MainScreen({
         <View style={styles.buttonContainer}>
           <Button style={styles.button} onPress={login}>
             SIGN IN
-          </Button>
-          <Button style={styles.button} onPress={registry}>
-            SIGN UP
           </Button>
           <Button style={styles.button} onPress={logout}>
             SIGN OUT
